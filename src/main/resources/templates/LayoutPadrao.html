@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xlms:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="icon" type="image/png" href="/images/icone.png" />
+<title>Açai Paidegua Web</title>
+
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-timepicker.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-datepicker.standalone.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-datetimepicker.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-datetimepicker-standalone.css}" />
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-select.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+<script th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyA0VhVdXTIEIOAuQJwmsOzQGr8eZYgfmRw}"></script>
+
+</head>
+
+<body>
+
+	<header layout:include="Cabecalho"></header>
+
+	<section layout:fragment="conteudo">
+		<p>conteudo principal</p>
+	</section>
+
+	
+
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.masknumber.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.pt-BR.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.maskedinput.js}"></script>
+	<script type="text/javascript" th:src="@{/js/calculos.js}"></script>
+	<script type="text/javascript" th:src="@{/js/acaipde.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Detalhes da Venda</title>
+</head>
+
+<section layout:fragment="conteudo" id="vendaHolter">
+
+	<div class="container">
+
+		<div layout:include="MensagemGeral"></div>
+
+
+		<div class="panel">
+
+			<div class="panel-heading text-center">
+				<img th:src="${venda.estabelecimento.urlImagem}"
+					class="img-circle img-responsive"
+					alt="${venda.estabelecimento.urlImagem}" /> 
+					<span class="detalhe-nome text-center" th:text="${venda.estabelecimento.nome}"></span><br />
+					<span class="detalhe-nome text-center" th:text="|Data da Venda: ${{venda.dataVenda}}|"></span>
+			</div>
+
+		</div>
+
+
+		<div class="panel">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Dados da venda</h1>
+				</div>
+			</div>
+
+			<ul class="list-group">
+
+				<li class="list-group-item"><b>Cliente:</b> 
+				<label th:text="${{venda.cliente }}"></label></li>
+				
+				<li class="list-group-item"><b>Email: </b> 
+				<label th:text="${{venda.cliente.email}}"></label></li>
+				
+				<li class="list-group-item"><b>Endereço: </b> 
+				<label th:text="${venda.EnderecoEntrega}"></label> 
+				<label th:text="${venda.bairroEntrega}"></label></li>
+				
+				<li class="list-group-item"><b>Forma de Pagamento: </b> <label
+					th:text="${{venda.formaPagamento}}"></label></li>
+					
+				<li class="list-group-item"><b>Entrega: </b> <label
+					th:text="${{venda.dataHoraEntrega}}"></label></li>
+
+				<li class="list-group-item"><b>Observação: </b> <label
+					th:text="${{venda.observacao}}"></label></li>
+					
+				<li class="list-group-item"><b>Status: </b> <label
+					th:text="${{venda.status}}"></label></li>
+
+				<li class="list-group-item"><b>Taxa de entrega: </b> <label
+					th:text="${{venda.taxaEntrega}}"></label></li>
+					
+				<li class="list-group-item"><b>Troco: </b> <label
+					th:text="${{venda.troco}}"></label></li>
+					
+				<li class="list-group-item"><b>Total da venda: </b> <label
+					th:text="${{venda.valorTotal}}"></label></li>
+					
+			</ul>
+		</div>
+
+		<!-- Itens da venda -->
+
+		<div class="panel">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Itens da venda</h1>
+					
+				</div>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Nome</th>
+						<th class="text-center col-md-2">Quantidade</th>
+						<th class="text-center col-md-2">Preço</th>
+						<th class="text-center col-md-1">Total</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="item : ${venda.itens_vendas}">
+							<td class="text-center" th:text="${item.id}"></td>
+							<td class="text-center" th:text="${item.tabelaPreco.produto.nome}"></td>
+							<td class="text-center" th:text="${item.quantidade}"></td>
+							<td class="text-center" th:text="${item.tabelaPreco.preco}"></td>
+							<td class="text-center" th:text="${item.venda.valorTotal}"></td>
+
+							
+						</tr>
+
+						<tr>
+							<td th:if="${#lists.isEmpty(venda.itens_vendas)}"
+								class="text-center" colspan="12">Não foi encontrado nenhum item na venda</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+</div>
+</section>
+
+</html>

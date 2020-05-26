@@ -1,0 +1,27 @@
+.color {
+	background-color: #880F41;
+}
+
+img {
+	width: 60px;
+	height: 60px;
+	z-index: 1;
+}
+
+.container {
+	margin-top: 30px;
+}
+
+.brand-logo {
+	margin-left: 30px;
+}
+
+button {
+	margin: 10px auto;
+}
+
+.alert {
+	background-color: #e53935;
+	color: white;
+	font-size: 18px;
+}

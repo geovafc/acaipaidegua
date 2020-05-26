@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Pesquisa de Estabelecimento</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+<script type="text/javascript" th:src="@{/js/mapa.js}"></script>
+
+	<div class="panel panel-default">
+
+		<div class="panel-body">
+
+			<div id="mapas" style="width: 600px; height: 400px">Mapa</div>
+		</div>
+
+	</div>
+
+</section>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Pesquisa de Cadastros</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default panel-primary">
+
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title pde-titulo-panel">Pesquisar
+					Cadastro</h1>
+				<a class="btn btn-link pde-link-panel-detalhe" sec:authorize="hasRole('ROLE_ADMIN')"
+					th:href="@{/pre-cadastro}">Novo cadastro</a>
+			</div>
+		</div>
+
+		<div class="panel-body">
+
+		<div class="row">
+			<form method="GET"  sec:authorize="hasRole('ROLE_ADMIN')"
+				th:action="@{/pre-cadastro/pesquisar/nome}" th:object="${filtro}">
+				
+						<div class="col-sm-6">
+							<div class="input-group">
+								<input class="form-control color"
+									placeholder="Qual estabelecimento esta procurando?"
+									autofocus="autofocus" th:field="*{nome}">
+								</input> 
+								<span class="input-group-btn">
+									<button type="submit" class="btn color">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+			</form>
+			<form method="GET"  sec:authorize="hasRole('ROLE_ADMIN')"
+				th:action="@{/pre-cadastro/pesquisar/bairro}" th:object="${filtro}">
+						<div class="col-sm-6">
+							<div class="input-group">
+								<input class="form-control color"
+									placeholder="Ou informe o Bairro do estabelecimento que esta procurando?"
+									autofocus="autofocus" th:field="*{bairro}">
+								</input> 
+								<span class="input-group-btn">
+									<button type="submit" class="btn color">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+			</form>
+		</div>
+			
+			<div class="table-responsive">
+				
+				<table class="table table-bordered table-striped">
+				
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Nome</th>
+						<th class="text-center col-md-2">Endereco</th>
+						<th class="text-center col-md-1">Responsável</th>
+						<th class="text-center col-md-1">Bairro</th>
+						<th class="text-center col-md-2">Ação</th>
+					</thead>
+
+					<tbody>
+					
+						<tr th:each="cadastro : ${page.content}">
+						
+							<td class="text-center" th:text="${cadastro.id}"></td>
+							<td class="text-center" th:text="${cadastro.nome}"></td>
+							<td class="text-center" th:text="${cadastro.logradouro}"></td>
+							<td class="text-center" th:text="${cadastro.responsavel}"></td>
+							<td class="text-center" th:text="${cadastro.bairro}"></td>
+							
+							
+							<td class="text-center">
+								<a class="btn btn-link btn-xs"
+									th:href="@{/pre-cadastro/detalhe/{id}(id=${cadastro.id})}"
+									title="Detalhes" rel="tooltip" data-placement="top"> 
+									<span class="glyphicon glyphicon-list-alt"></span>
+								</a> 
+								<a class="btn btn-link btn-xs"
+									th:href="@{/pre-cadastro/{id}(id=${cadastro.id})}"
+									title="Editar" rel="tooltip" data-placement="top"
+									sec:authorize="hasRole('ROLE_ADMIN')"> 
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a> 
+								
+							</td>
+						
+						</tr>
+							
+						<tr>
+							<td th:if="${#lists.isEmpty(page.content)}"
+								class="text-center" colspan="12">Nenhum cadastro
+								encontrado</td>
+						</tr>
+						
+					</tbody>
+				</table>
+				
+				<div class="text-center" th:if="${page.totalPages > 1}">
+					<ul class="pagination pagination-lg">
+						<li th:class="${current != 1}? '' : 'page-item disabled'">
+							<span th:if="${current == 1}">Prev</span>
+							<a class="page-link" th:if="${current != 1}" th:href='@{/pre-cadastro/page/{p}(p=${current-2})}' tabindex="-1">Prev</a>
+						</li>
+						<li th:each="p : ${#numbers.sequence(begin,end)}"
+							th:class="${p == current ? 'active' : ''}">
+							<span th:if="${p == current}" th:text="${p}"></span>
+							<a th:if="${p != current}"  th:href="@{/pre-cadastro/page/{p}(p=${p-1})}">
+								<span th:text="${p}"></span>
+							</a>
+						</li>
+						<li th:class="${current != page.totalPages}? '' : 'page-item disabled'">
+							<span th:if="${current == page.totalPages}">Next</span>
+							<a th:if="${current != page.totalPages}" th:href='@{/pre-cadastro/page/{p}(p=${page.number+1})}'>Next</a>
+						</li>
+					</ul>
+				</div>
+			
+			</div>
+			
+		</div>
+
+	</div>
+
+</section>
+</html>

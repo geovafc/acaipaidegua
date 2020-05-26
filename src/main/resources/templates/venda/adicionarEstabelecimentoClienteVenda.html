@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Adicionar Venda</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+	
+		<div class="panel panel-default panel-primary">
+		
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-titulo-panel">Cadastar uma venda</h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						sec:authorize="hasRole('ROLE_ADMIN')"
+						th:href="@{/vendas}">Voltar vendas</a>
+				</div>
+			</div>
+			
+			<div class="panel-body">
+				
+				
+				
+			</div>
+				
+				<div class="panel-body" th:if="${venda != null}" 
+					style="margin-top: -45px;">
+					
+					<form method="POST" th:action="@{/vendas}"
+						th:object="${venda}">
+						
+						<input type="hidden" th:field="*{estabelecimento}" />
+						<input type="hidden" th:field="*{cliente}" />
+						
+					<div class="row">
+						<div class="form-group col-sm-3 pde-required">
+							<label for="cliente" class="control-label">Nome Cliente</label> 
+							<input type="text" class="form-control" th:field="*{cliente.nome}"
+							disabled="true"/>
+						</div>
+						
+						<div class="form-group col-sm-3 pde-required">
+							<label for="estabelecimento" class="control-label">Nome Estabelecimento</label> 
+							<input type="text" class="form-control" th:field="*{estabelecimento.nome}"
+							disabled="true"/>
+						</div>
+						
+						<div class="form-group col-sm-3">
+							<label for="logradouro">Logradouro</label>
+							<input type="text" class="form-control"
+									th:field="*{estabelecimento.logradouro}"
+									disabled="true" />
+						</div>
+						
+						<div class="form-group col-sm-3">
+							<label for="bairro">Bairro</label>
+							<input type="text" class="form-control"
+									th:field="*{estabelecimento.bairro}" 
+									disabled="true"/>
+						</div>
+						
+					</div>
+					
+						<div>
+							<button type="submit" class="btn btn-primary" style="margin-top: 10px;">Adicionar</button>
+						</div>
+					
+					</form>
+			
+				</div>
+				
+				
+		</div>
+	
+	</div>
+
+</section>
+
+
+</html>

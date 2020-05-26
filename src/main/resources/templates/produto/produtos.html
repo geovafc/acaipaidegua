@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Produtos</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+		<div layout:include="MensagemGeral"></div>
+		
+		<div class="panel panel-default">
+		
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Produtos</h1>
+				</div>
+			</div>
+			
+			<div class="panel-body">
+				
+				<form id="form" class="form-inline" method="POST" style="margin: 20px 0"
+					th:action="@{/produtos}" th:object="${produto}">
+
+					<div class="form-group">
+					
+						<input type="hidden" th:field="*{id}" />
+
+						<input type="text" class="form-control" placeholder="Nome"
+							th:field="*{nome}" /> 
+						<input type="text" class="form-control"
+							placeholder="Descrição do Produto" th:field="*{descricao}" />
+
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+
+				</form>
+				
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+					
+						<thead>
+							<th class="text-center col-md-1">#</th>
+							<th class="text-center col-md-2">Nome</th>
+							<th class="text-center col-md-2">Descrição</th>
+							<th class="text-center col-md-1">Ação</th>
+						</thead>
+					
+					
+						<tbody>
+						
+							<tr th:each="produto : ${page.content}">
+								
+								<td class="text-center" th:text="${produto.id}"></td>
+								<td class="text-center" th:text="${produto.nome}"></td>
+								<td class="text-center" th:text="${produto.descricao}"></td>
+								<td class="text-center">
+									<a class="btn btn-link btn-xs"
+										th:href="@{/produtos/{id}(id=${produto.id})}" title="Editar"
+										rel="tooltip" data-placement="top"
+										sec:authorize="hasRole('ROLE_ADMIN')"> <span
+											class="glyphicon glyphicon-pencil"></span>
+									</a> 
+									<a class="btn btn-link btn-xs" data-toggle="modal"
+										data-target="#confirmacaoExclusaoModalProduto"
+										th:attr="data-id=${produto.id}, data-nome=${produto.nome}"
+										title="Excluir" rel="tooltip" data-placement="top"
+										sec:authorize="hasRole('ROLE_ADMIN')"> <span
+											class="glyphicon glyphicon-remove"></span>
+									</a>
+								</td>
+							</tr>
+							
+							<tr>
+								<td th:if="${#lists.isEmpty(page.content)}" class="text-center"
+									colspan="12">Nenhum produto encontrado</td>
+							</tr>
+							
+						</tbody>
+					
+					</table>
+					
+		<div layout:include="produto/DiagoloConfirmacaoExclusaoProduto"></div>
+					
+<!-- 					<label th:text="|tamanho: ${page.size}|"></label><br/> -->
+<!-- 					<label th:text="|Total páginas: ${page.totalPages}|"></label><br/> -->
+<!-- 					<label th:text="|numero página: ${page.number}|"></label> -->					
+					
+					<div class="text-center" th:if="${page.totalPages != 0}">
+						<ul class="pagination pagination-lg">
+							<li th:class="${current != 1}? '' : 'disabled'">
+							<span th:if="${current == 1}">Prev</span>
+								<a th:if="${current != 1}" th:href='@{/produtos/page/{p}(p=${current-2})}'>Prev</a>
+							</li>
+							<li th:each="p : ${#numbers.sequence(begin,end)}"
+								th:class="${p == current ? 'active' : ''}">
+								<span th:if="${p == current}" th:text="${p}"></span>
+								<a th:if="${p != current}"  th:href="@{/produtos/page/{p}(p=${p-1})}">
+								<span th:text="${p}"></span>
+								</a>
+							</li>
+							<li th:class="${current != page.totalPages}? '' : 'disabled'">
+							<span th:if="${current == page.totalPages}">Next</span>
+								<a th:if="${current != page.totalPages}" th:href='@{/produtos/page/{p}(p=${page.number+1})}'>Next</a>
+							</li>
+						</ul>
+					</div>
+					
+				</div>
+			
+			</div>
+			
+		</div>
+
+	</div>
+
+</section>
+
+
+</html>

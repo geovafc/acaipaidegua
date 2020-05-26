@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Cadastro de Telefone</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+
+		<div class="panel panel-default panel-primary text-center">
+			<h3>Cadastro de Telefones</h3>
+			<p th:text="${telefone.estabelecimento.nome}"></p>
+		</div>
+		<form method="POST" th:action="@{/telefones/salvar}"
+			th:object="${telefone}">
+
+			<div layout:include="MensagemGeral"></div>
+			<div layout:include="MensagemErro"></div>
+
+			<div class="panel panel-default panel-primary">
+
+				<div class="panel-heading">
+					<div class="clearfix">
+						<h1 class="panel-title pde-titulo-panel">Novo telefone</h1>
+						<a class="btn btn-link pde-link-panel-detalhe"
+							th:href="@{/estabelecimentos/detalhe/{id}(id=${telefone.estabelecimento.id})}">Voltar
+							detalhes</a>
+					</div>
+				</div>
+
+
+				<div class="panel-body">
+
+					<input type="hidden" th:field="*{id}" /> 
+					<input type="hidden" th:field="*{estabelecimento}" />
+
+					<div class="row">
+
+						<div class="form-group col-sm-3">
+							<label for="operadora">Operadora</label> <select
+								class="form-control" name="operadora" th:field="*{operadora}">
+								<option th:each="operadora: ${todasOperadoras}"
+									th:value="${operadora}" th:text="${operadora.descricao}"></option>
+
+							</select>
+						</div>
+
+
+						<div class="form-group col-sm-3"
+							th:classappend="${#fields.hasErrors('numero')} ? has-error">
+							<label for="numero">Numero</label> 
+							<input type="text" name="numero" class="form-control js-mask-telefone" th:field="*{numero}" />
+						</div>
+
+
+					</div>
+
+
+					<hr />
+
+					<div class="form-group">
+						<div>
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Vendas</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+		<div class="panel panel-default">
+
+				<div class="table table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<th class="text-center col-md-1">#</th>
+							<th class="text-center col-md-2">Cliente</th>
+							<th class="text-center col-md-2">Estabelecimento</th>
+							<th class="text-center col-md-2">Endereco</th>
+							<th class="text-center col-md-1">Bairro</th>
+							<th class="text-center col-md-2">telefone</th>
+							<th class="text-center col-md-2" data-field="data_venda">Data</th>
+							<th class="text-center col-md-2" data-field="status">Status</th>
+							<th class="text-center col-md-2">Ação</th>
+							
+						</thead>
+
+						<tbody>
+
+							<tr th:each="venda : ${vendas}" th:onclick="'javascript:openVendaModal(\'' + ${venda.id} +'\');'">
+								<td class="text-center click" th:text="${venda.id}"></td>
+								<td class="text-center click" th:text="${venda.cliente.nome}"></td>
+								<td class="text-center click" th:text="${venda.estabelecimento.nome}"></td>
+								<td class="text-center click" th:text="${venda.enderecoEntrega}"></td>
+								<td class="text-center click" th:text="${venda.bairroEntrega}"></td>
+								<td class="text-center click" th:text="${venda.cliente.telefone}"></td>
+								<td class="text-center click" th:text="${{venda.dataVenda}}"></td>
+								<td class="text-center click" th:attr="data-role=${venda.id}">
+									<span class="label" th:text="${{venda.status}}"
+									th:classappend="${venda.novo ? 'label-default' : venda.aceito ? 'label-primary' : venda.acaminho ? 'label-info' : venda.concluido ? 'label-success' : 'label-warning'}">
+									</span>
+								</td>
+								<td class="text-center">
+									<a class="btn btn-link btn-xs"
+										th:href="@{/vendas/detalhe/{id}(id=${venda.id})}"
+										title="Detalhes" rel="tooltip" data-placement="top"> 
+									<span class="glyphicon glyphicon-list-alt"></span>
+								</a> 
+								</td>
+								
+							</tr>
+
+							<tr>
+								<td th:if="${#lists.isEmpty(vendas)}" class="text-center"
+									colspan="12">Nenhuma venda cadastrada</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+
+</section>
+
+
+</html>

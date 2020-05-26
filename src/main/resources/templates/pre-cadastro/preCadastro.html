@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+	
+<head>
+<title>Pre-Cadastro de Estabelecimento</title>
+
+
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="panel panel-default panel-primary">
+
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title pde-titulo-panel">Pré-Cadastro de Novos Estabelecimento</h1>
+				<a class="btn btn-link pde-link-panel-detalhe"
+					th:href="@{/estabelecimentos}">Voltar para pesquisa</a>
+			</div>
+		</div>
+
+
+		<div class="container">
+		
+		<form id="formulario" method="POST" th:action="@{/pre-cadastro}" th:object="${precadastro}">
+
+			
+			<div class="panel-body">
+			
+			<div layout:include="MensagemGeral"></div>
+			<div layout:include="MensagemErro"></div>
+			
+				<div class="row">
+					<!-- Nav tabs -->
+					<ul id="tabEtapas" class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#etapa1"
+							aria-controls="etapa1" role="tab" data-toggle="tab">Dados</a></li>
+						<li role="presentation"><a href="#etapa2"
+							aria-controls="etapa2" role="tab" data-toggle="tab">Endereço</a></li>
+						<li role="presentation"><a href="#etapa3"
+							aria-controls="etapa3" role="tab" data-toggle="tab">Coordenadas</a></li>
+						<li role="presentation"><a href="#etapa4"
+							aria-controls="etapa4" role="tab" data-toggle="tab">Funcionamento</a></li>
+						<li role="presentation"><a href="#etapa5"
+							aria-controls="etapa5" role="tab" data-toggle="tab">Operacional 1</a></li>
+						<li role="presentation"><a href="#etapa6"
+							aria-controls="etapa6" role="tab" data-toggle="tab">Operacional 2</a></li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content">
+					
+						<!-- Inicio da Etapa 1 -->
+						<div role="tabpanel" class="tab-pane active" id="etapa1">
+						
+								<input type="hidden" th:field="*{id}" />
+								
+								<div class="row">
+								
+									<div class="form-group col-sm-4 pde-required" th:classappend="${#fields.hasErrors('dataCadastro')} ? has-error">
+										<label for="dataCadastro" class="control-label">Data de cadastro</label>
+											<input type="text" class="form-control"	id="dataCadastro" th:field="*{dataCadastro}" autofocus="autofocus" 
+												data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+												data-date-autoclose="true" data-date-today-highlight="true" data-date-orientation="bottom"/>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-sm-4 pde-required"
+										th:classappend="${#fields.hasErrors('nome')} ? has-error">
+										<label for="nome" class="control-label">Nome</label> 
+										<input type="text" class="form-control" id="nome" th:field="*{nome}"
+											/>
+									</div>
+				
+									<div class="form-group col-sm-4"
+										th:classappend="${#fields.hasErrors('responsavel')} ? has-error">
+										<label for="responsavel">Responsável</label> 
+										<input type="text" class="form-control" id="responsavel" th:field="*{responsavel}" />
+									</div>
+				
+									<div class="form-group col-sm-4">
+										<label for="email">E-mail</label> 
+										<input type="email" class="form-control" id="email" th:field="*{email}" />
+									</div>
+
+								</div>
+								
+								
+								<div class="row">
+									<div class="form-group col-sm-4 pde-required">
+										<label for="telefone" class="control-label">Telefone residencial</label> 
+										<input type="text" class="form-control js-mask-telefone" id="telefone" th:field="*{telefone}"
+											/> 
+									</div>
+				
+									<div class="form-group col-sm-4">
+										<label for="celular">Celular</label> 
+										<input type="text" class="form-control js-mask-telefone" id="celular" th:field="*{celular}" />
+									</div>
+				
+									<div class="form-group col-sm-4">
+										<label for="site">Site</label> 
+										<input type="site" class="form-control" id="site" th:field="*{site}" />
+									</div>
+
+								</div>
+						
+							<button onclick="alteraEtapa(2)" class="btn btn-info prev">Próxima Etapa</button>
+						
+						</div><!-- Fim da Etapa 1 -->
+						
+						<!-- Início da Etapa 2 -->
+						<div role="tabpanel" class="tab-pane" id="etapa2">
+							
+								<div class="row">
+									<div class="form-group col-sm-6">
+										<label for="logradouro">Logradouro</label>
+										<input type="text" class="form-control"
+												id="logradouro" th:field="*{logradouro}" />
+									</div>
+									<div class="form-group col-sm-6">
+										<label for="complemento">Complemento</label>
+										<input type="text" class="form-control"
+												id="complemento" th:field="*{complemento}" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-sm-6">
+										<label for="bairro">Bairro</label>
+										<input type="text" class="form-control"
+												id="bairro" th:field="*{bairro}" />
+									</div>
+								</div>
+								
+							
+							<button onclick="alteraEtapa(3)" class="btn btn-info prev">Próxima Etapa</button>
+						
+						</div><!-- Fim da Etapa 2 -->
+						
+						<!-- Início da Etapa 3 -->
+						<div role="tabpanel" class="tab-pane" id="etapa3">
+							
+								<div class="row">
+									<div class="form-group col-sm-6">
+										<label for="latitude">Latitude</label>
+										<input type="text" class="form-control"
+												id="latitude" th:field="*{latitude}" />
+									</div>
+				
+									<div class="form-group col-sm-6">
+										<label for="longitude">Longitude</label>
+										<input type="text" class="form-control"
+												id="longitude" th:field="*{longitude}" />
+									</div>
+								</div>
+								
+							<button onclick="alteraEtapa(4)" class="btn btn-info prev">Próxima Etapa</button>
+						
+						</div><!-- Fim da Etapa 3 -->
+						
+						<!-- Início da Etapa 4 -->
+						<div role="tabpanel" class="tab-pane" id="etapa4">
+							
+								<div class="row">
+								
+									<div class="form-group col-sm-6">
+											<label for="funcionamento">Funcionamento</label>
+											<select class="selectpicker form-control" th:field="*{funcionamento}" 
+													multiple="multiple" title="Selecione os dias"
+													data-style="pde-style">
+											  <option value="todos">Todos os Dias</option>
+											  <option value="segunda">Segunda</option>
+											  <option value="terça">Terça</option>
+											  <option value="quarta">Quarta</option>
+											  <option value="quinta">Quinta</option>
+											  <option value="sexta">Sexta</option>
+											  <option value="sábado">Sábado</option>
+											  <option value="domingo">Domingo</option>
+											</select>
+										</div>
+									
+									<div class="form-group col-sm-3">
+										<label for="hrInicio">Hora Inicio</label>
+										<div class='input-group' style="padding-top: 0;">
+											<input type="text" class="form-control time" 
+													id="hrInicio" />
+											<span class="input-group-addon"> 
+												<span class="glyphicon glyphicon-time"></span>
+											</span>
+										</div>
+									</div>
+									<div class="form-group col-sm-3">
+										<label for="hrFim">Hora Fechamento</label>
+										<div class='input-group' style="padding-top: 0;">
+											<input type="text" class="form-control time"
+													id="hrFim" />
+											<span class="input-group-addon"> 
+												<span class="glyphicon glyphicon-time"></span>
+											</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="form-group col-sm-6">
+										<label for="horario">Horario</label>
+										<input type="text" class="form-control"
+												id="horario" th:field="*{horario}" />
+									</div>
+								
+								</div>
+								
+							<button onclick="alteraEtapa(5)" class="btn btn-info prev">Próxima Etapa</button>
+						
+						</div><!-- Fim da Etapa 4 -->
+						
+						<!-- Início da Etapa 5 -->
+						<div role="tabpanel" class="tab-pane" id="etapa5">
+								
+								<h3>Beneficiamento fora da safra</h3>
+								
+								<h4>Polpa</h4>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="qtdAcaiFS">Quantidade</label>
+											<input type="number" class="form-control"
+													id="qtdAcaiFS"/>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="undAcaiFS">Unidade</label>
+											<select id="undAcaiFS" class="selectpicker form-control">
+											  <option value="selecione" selected="selected">Selecione</option>
+											  <option value="lata">Lata</option>
+											  <option value="saca">Saca</option>
+											  <option value="raza">Raza</option>
+											</select>
+										</div>
+										
+										<div class="form-group col-sm-4">
+											<label for="qtdAcaiForaSafra">Quantidade Total</label>
+											<input type="number" class="form-control"
+													id="qtdAcaiForaSafra" th:field="*{qtdAcaiForaSafra}" />
+										</div>
+											
+									</div>
+									
+								<h4>Resíduo</h4>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="qtdResFS">Quantidade</label>
+											<input type="number" class="form-control"
+													id="qtdResFS" />
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="undResFS">Unidade</label>
+											<select id="undResFS" class="selectpicker form-control">
+											  <option value="selecione" selected="selected">Selecione</option>
+											  <option value="lata">Lata</option>
+											  <option value="saca">Saca</option>
+											  <option value="raza">Raza</option>
+											</select>
+										</div>
+										
+										<div class="form-group col-sm-4">
+											<label for="qtdResiduoForaSafra">Quantidade Total</label>
+											<input type="number" class="form-control"
+													id="qtdResiduoForaSafra" th:field="*{qtdResiduoForaSafra}" />
+										</div>
+											
+									</div>
+									
+								<h3>Beneficiamento na safra</h3>
+								
+								<h4>Polpa</h4>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="qtdAcaiNS">Quantidade</label>
+											<input type="number" class="form-control"
+													id="qtdAcaiNS"/>
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="undAcaiNS">Unidade</label>
+											<select id="undAcaiNS" class="selectpicker form-control" data-style="pde-style">
+											  <option value="selecione" selected="selected">Selecione</option>
+											  <option value="lata">Lata</option>
+											  <option value="saca">Saca</option>
+											  <option value="raza">Raza</option>
+											</select>
+										</div>
+										
+										<div class="form-group col-sm-4">
+											<label for="qtdAcaiNaSafra">Quantidade Total</label>
+											<input type="number" class="form-control"
+													id="qtdAcaiNaSafra" th:field="*{qtdAcaiNaSafra}" />
+										</div>
+											
+									</div>
+									
+								<h4>Resíduo</h4>
+									<div class="row">
+										<div class="form-group col-sm-4">
+											<label for="qtdResNS">Quantidade</label>
+											<input type="number" class="form-control"
+													id="qtdResNS" />
+										</div>
+										<div class="form-group col-sm-4">
+											<label for="undResNS">Unidade</label>
+											<select id="undResNS" class="selectpicker form-control" data-style="pde-style">
+											  <option value="selecione" selected="selected">Selecione</option>
+											  <option value="lata">Lata</option>
+											  <option value="saca">Saca</option>
+											  <option value="raza">Raza</option>
+											</select>
+										</div>
+										
+										<div class="form-group col-sm-4">
+											<label for="qtdResiduoNaSafra">Quantidade Total</label>
+											<input type="number" class="form-control"
+													id="qtdResiduoNaSafra" th:field="*{qtdResiduoNaSafra}" />
+										</div>
+											
+									</div>
+								
+								<button onclick="alteraEtapa(6)" class="btn btn-info prev">Próxima Etapa</button>
+								
+						</div><!-- Fim da Etapa 5 -->
+								
+						<!-- Início da Etapa 6 -->		
+						<div role="tabpanel" class="tab-pane" id="etapa6">
+							
+								<div class="row">
+									<div class="form-group col-sm-4">
+										<label for="destinoResiduo">Destino resíduo</label>
+										<select id="destinoResiduo" class="selectpicker form-control" multiple="multiple"
+												title="Selecione as opções" th:field="*{destinoResiduo}" data-style="pde-style">
+										  <option value="lixeiro">Lixeiro</option>
+										  <option value="meio ambiente">Meio Ambiente</option>
+										  <option value="outros">Outros</option>
+										</select>
+										
+									</div>
+									
+									<div class="form-group col-sm-4">
+										<label for="custoResiduo">Custo do Resíduo (saca)</label>
+										<div class="input-group" style="padding-top: 1px;"> 
+											<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+											<input type="text"
+												class="form-control js-currency" id="custoResiduo" th:field="*{custoResiduo}" />
+										</div>
+									</div>
+									
+									<div class="form-group col-sm-4">
+										<label for="formaParceria">Forma Parceria</label>
+										<select id="formaParceria" class="selectpicker form-control" multiple="multiple"
+												title="Selecione as opções" data-style="pde-style"
+												th:field="*{formaParceria}">
+										  <option value="app">Aplicativo</option>
+										  <option value="mkt">Markting</option>
+										  <option value="residuos">Resíduos</option>
+										</select>
+										
+									</div>
+								</div>
+								
+								<button type="submit" class="btn btn-success">Salvar</button>
+								
+						</div><!-- Fim da Etapa 6 -->
+
+					</div>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		
+	</script>
+
+</section>
+
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Pesquisa de Estabelecimento</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div layout:include="MensagemGeral"></div>
+
+	<div class="panel panel-default panel-primary">
+
+		<div class="panel-heading">
+			<div class="clearfix">
+				<h1 class="panel-title pde-titulo-panel">Pesquisa
+					Estabelecimento</h1>
+				<a class="btn btn-link pde-link-panel-detalhe" sec:authorize="hasRole('ROLE_ADMIN')"
+					th:href="@{/estabelecimentos/novo}">Novo estabelecimento</a>
+			</div>
+		</div>
+
+		<div class="panel-body">
+
+			<form method="GET" class="form-horizontal" sec:authorize="hasRole('ROLE_ADMIN')"
+				th:action="@{/estabelecimentos}" th:object="${filtro}">
+				<div class="form-group">
+
+					<div class="col-sm-6">
+						<div class="input-group">
+							<input class="form-control color"
+								placeholder="Qual estabelecimento esta procurando?"
+								autofocus="autofocus" th:field="*{nome}"></input> 
+								<span class="input-group-btn">
+								<button type="submit" class="btn color">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</form>
+			
+			<div class="table-responsive">
+				
+				<table class="table table-bordered table-striped">
+				
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Nome</th>
+						<th class="text-center col-md-2">Endereco</th>
+						<th class="text-center col-md-1">Responsável</th>
+						<th class="text-center col-md-1">Bairro</th>
+						<th class="text-center col-md-1">Status</th>
+						<th class="text-center col-md-1">Selo</th>
+						<th class="text-center col-md-2">Ação</th>
+					</thead>
+
+					<tbody>
+					
+						<tr th:each="estabelecimento : ${page.content}">
+						
+							<td class="text-center" th:text="${estabelecimento.id}"></td>
+							<td class="text-center" th:text="${estabelecimento.nome}"></td>
+							<td class="text-center" th:text="${estabelecimento.logradouro}"></td>
+							<td class="text-center" th:text="${{estabelecimento.usuario == null ? null :  estabelecimento.usuario.username}}"></td>
+							<td class="text-center" th:text="${{estabelecimento.bairro}}"></td>
+							<td class="text-center" th:attr="data-role=${estabelecimento.id}">
+								<span class="label" th:text="${estabelecimento.status.descricao}"
+								th:classappend="${estabelecimento.pendente ? 'label-danger' : estabelecimento.recebido ? 'label-success' : 'label-warning'}"></span>
+							</td>
+							<td class="text-center"
+								th:text="${{estabelecimento.isComSelo() ? 'SIM' : 'NÃO'}}">
+							</td>
+							
+							<td class="text-center">
+								<a class="btn btn-link btn-xs"
+									th:href="@{/estabelecimentos/detalhe/{id}(id=${estabelecimento.id})}"
+									title="Detalhes" rel="tooltip" data-placement="top"> 
+									<span class="glyphicon glyphicon-list-alt"></span>
+								</a> 
+								<a class="btn btn-link btn-xs"
+									th:href="@{/estabelecimentos/{id}(id=${estabelecimento.id})}"
+									title="Editar" rel="tooltip" data-placement="top"
+									sec:authorize="hasRole('ROLE_ADMIN')"> 
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a> 
+								
+								<a class="btn btn-link btn-xs" data-toggle="modal"
+									data-target="#confirmacaoExclusaoModal"
+									th:attr="data-id=${estabelecimento.id}, data-nome=${estabelecimento.nome}"
+									title="Excluir" rel="tooltip" data-placement="top"
+									sec:authorize="hasRole('ROLE_ADMIN')"> 
+									<span class="glyphicon glyphicon-remove"></span>
+								</a> 
+								
+								<a class="btn btn-link btn-xs js-atualizar-status"
+									th:if="${estabelecimento.pendente}" title="Receber"
+									rel="tooltip" data-placement="top"
+									th:attr="data-id=${estabelecimento.id}"
+									th:href="@{/estabelecimentos/{id}/receber(id=${estabelecimento.id})}"
+									sec:authorize="hasRole('ROLE_ADMIN')">
+										<span class="glyphicon glyphicon-check"></span>
+								</a>
+							</td>
+						
+						</tr>
+							
+						<tr>
+							<td th:if="${#lists.isEmpty(page.content)}"
+								class="text-center" colspan="12">Nenhum estabelecimento
+								encontrado</td>
+						</tr>
+						
+					</tbody>
+				</table>
+				
+					<div class="text-center" th:if="${page.totalPages > 1}">
+						<ul class="pagination pagination-lg">
+							<li th:class="${current != 1}? '' : 'page-item disabled'">
+							<span th:if="${current == 1}">Prev</span>
+								<a class="page-link" th:if="${current != 1}" th:href='@{/estabelecimentos/page/{p}(p=${current-2})}' tabindex="-1">Prev</a>
+							</li>
+							<li th:each="p : ${#numbers.sequence(begin,end)}"
+								th:class="${p == current ? 'active' : ''}">
+								<span th:if="${p == current}" th:text="${p}"></span>
+								<a th:if="${p != current}"  th:href="@{/estabelecimentos/page/{p}(p=${p-1})}">
+								<span th:text="${p}"></span>
+								</a>
+							</li>
+							<li th:class="${current != page.totalPages}? '' : 'page-item disabled'">
+							<span th:if="${current == page.totalPages}">Next</span>
+								<a th:if="${current != page.totalPages}" th:href='@{/estabelecimentos/page/{p}(p=${page.number+1})}'>Next</a>
+							</li>
+						</ul>
+				</div>
+			
+			</div>
+			
+		</div>
+
+		<div layout:include="estabelecimento/DiagoloConfirmacaoExclusao"></div>
+
+	</div>
+
+</section>
+</html>

@@ -1,0 +1,186 @@
+<<<<<<< HEAD
+.btn-pde {
+	margin: 44px 0 0 40px;
+	min-width: 120px;
+	height: 40px;
+	border-radius: 5px;
+	color: rgba(255, 255, 255, .5);
+	background-color: #610631;
+	border-color: #610631
+}
+=======
+
+>>>>>>> 5faec6050880c2265e9c8fc20b155c14b0b2bc5a
+
+.btn-pde.focus, .btn-pde:focus {
+	color: #fff;
+	background-color: #6f4264;
+	border-color: #4d0026
+}
+
+.btn-pde:hover {
+	color: #fff;
+	background-color: #4d0026;
+	border-color: #4d0026
+}
+
+.btn-pde.active, .btn-pde:active, .open>.dropdown-toggle.btn-pde {
+	color: #fff;
+	background-color: #4d0026;
+	border-color: #4d0026
+}
+
+.btn-pde.active.focus, .btn-pde.active:focus, .btn-pde.active:hover,
+	.btn-pde:active.focus, .btn-pde:active:focus, .btn-pde:active:hover,
+	.open>.dropdown-toggle.btn-pde.focus, .open>.dropdown-toggle.btn-pde:focus,
+	.open>.dropdown-toggle.btn-pde:hover {
+	color: #fff;
+	background-color: #4d0026;
+	border-color: #4d0026
+}
+
+.btn-pde.active, .btn-pde:active, .open>.dropdown-toggle.btn-pde {
+	background-image: none
+}
+
+.btn-pde.disabled.focus, .btn-pde.disabled:focus, .btn-pde.disabled:hover,
+	.btn-pde[disabled].focus, .btn-pde[disabled]:focus, .btn-pde[disabled]:hover,
+	fieldset[disabled] .btn-pde.focus, fieldset[disabled] .btn-pde:focus,
+	fieldset[disabled] .btn-pde:hover {
+	background-color: #610631;
+	border-color: #4d0026
+}
+
+.btn-pde .badge {
+	color: #4d0026;
+	background-color: #fff
+}
+
+.login-container {
+	width: 100vw;
+	height: 100vh;
+	background: #610631;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#back-login {
+	background-image: url("../images/login_logo.png");
+	background-repeat: no-repeat;
+	width: 300px;
+	height: 400px;
+	margin: 0px 10px;
+	box-shadow: 10px 10px 10px #33001a;
+}
+
+#form-login {
+	margin: 174px 0 0 17px;
+	width: 300px;
+}
+
+li {
+	display: inline-block;
+}
+
+li.input-pde {
+	width: 182px;
+}
+
+li.input-pde input {
+	background-color: #610631;
+	color: #fff;
+	border: none;
+	height: 40px;
+	line-height: 30px;
+	padding-left: 8px;
+}
+
+li.input-pde span {
+	background-color: #610631;
+	color: #fff;
+	border: none;
+}
+
+li.input-pde ::-webkit-input-placeholder {
+	color: rgba(255, 255, 255, .5);
+}
+
+li.input-pde button {
+	background: none;
+	border: none;
+	right: 3px;
+	top: 7px;
+}
+
+li.input-pde button i {
+	font-size: 14px;
+	color: rgba(255, 255, 255, .5);
+}
+
+li.input-pde .input-group {
+	top: 8px;
+}
+
+.img {
+	background-position: top center;
+	background-image: url(login_logo.png);
+	width: 400px;
+	height: 455px;
+	border-color: #610631;
+}
+
+.form {
+	padding-top: 180px;
+	width: 350px;
+	margin: 0 auto;
+}
+
+.titulo-login {
+	padding: 10px;
+	background: #610631;
+	color: white;
+	margin-bottom: 20px;
+}
+
+.container-box {
+	width: 300px;
+	padding: 1px;
+	box-sizing: border-box;
+}
+
+#form-box {
+	width: 400px;
+	padding: 5px;
+	box-sizing: border-box;
+	input
+	{
+	font-size
+	:
+	large;
+}
+
+a.btn-pde {
+	min-width: 164px;
+	height: 44px;
+	line-height: 34px;
+	border-radius: 0;
+	color: #fff;
+	background-color: #610631;
+	border-color: #2e6da4
+}
+
+#botao-pde {
+	background-color: lightgrey;
+	width: 200px;
+	height: 200px;
+}
+
+a.fill-div {
+	text-align: center;
+	display: block;
+	height: 100%;
+	width: 100%;
+	text-decoration: none;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:security="http://www.springframework.org/security/tags"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<nav class="navbar navbar-inverse navbar-satic-top bar">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" th:href="@{#}"> <img alt="Açai Paidegua"
+				th:src="@{/images/logo.png}" />
+			</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+
+				<li><a th:href="@{/estabelecimentos}">Início</a></li>
+
+				<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+					th:href="@{/usuarios}">Usuarios</a></li>
+
+				<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+					th:href="@{/produtos}">Produto</a></li>
+
+				<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+					th:href="@{/clientes}">Cliente</a></li>
+
+					
+				<li role="presentation" class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">
+						Pre-Cadastro<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+							th:href="@{/pre-cadastro}">Cadastrar</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+							th:href="@{/pre-cadastro/pesquisar}">Listar</a></li>
+					</ul>
+					
+				</li>
+
+				<li role="presentation" class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"
+					role="button" aria-haspopup="true" aria-expanded="false">
+						Vendas <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+							th:href="@{/vendas}">Listar</a></li>
+						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+							th:href="@{/vendas/add}">Adicionar</a></li>
+					</ul>
+					
+				</li>
+
+
+				<li><a th:href="@{#}"
+					th:text="|Usuario: ${#httpServletRequest.remoteUser}|"></a></li>
+
+				<li>
+					<form th:action="@{/logout}" method="post">
+
+						<button type="submit" title="Sair" rel="tooltip"
+							data-placement="right">
+							<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+
+						</button>
+
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+					</form>
+
+				</li>
+
+			</ul>
+		</div>
+
+	</div>
+</nav>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Lista de Usuários</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+		<div layout:include="MensagemGeral"></div>
+
+
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Usuarios</h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						th:href="@{/usuarios/add}">Novo usuario</a>
+				</div>
+			</div>
+
+			<div class="panel-body">
+
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<th class="text-center col-md-1">#</th>
+							<th class="text-center col-md-2">Nome</th>
+							<th class="text-center col-md-2">Email</th>
+							<th class="text-center col-md-2">Data Cadastro</th>
+							<th class="text-center col-md-1">Apto</th>
+							<th class="text-center col-md-2">Perfil</th>
+							<th class="text-center col-md-2">Ação</th>
+						</thead>
+
+						<tbody>
+							<tr th:each="usuario : ${usuarios}">
+								<td class="text-center" th:text="${usuario.id}"></td>
+								<td class="text-center" th:text="${usuario.username}"></td>
+								<td class="text-center" th:text="${usuario.email}"></td>
+								<td class="text-center" th:text="${{usuario.dataCadastro}}"></td>
+								<td class="text-center"
+									th:text="${usuario.enabled} ? 'SIM' : 'NÃO'"></td>
+
+								<td class="text-center"><span
+									th:each="perfil : ${usuario.roles}"
+									th:text="|${perfil.perfil.descricao},|"></span></td>
+
+								<td class="text-center"><a class="btn btn-link btn-xs"
+									th:href="@{/usuarios/update/{id}(id=${usuario.id})}"
+									title="Editar" rel="tooltip" data-placement="top"> <span
+										class="glyphicon glyphicon-pencil"></span>
+								</a> <a class="btn btn-link btn-xs"
+									th:href="@{/usuarios/perfil/{id}(id=${usuario.id})}"
+									title="Adicionar perfil" rel="tooltip" data-placement="top">
+										<span class="glyphicon glyphicon-sunglasses"></span>
+								</a> <a class="btn btn-link btn-xs" data-toggle="modal"
+									data-target="#confirmacaoExclusaoModalUsuario"
+									th:attr="data-id=${usuario.id}, data-nome=${usuario.username}"
+									title="Excluir" rel="tooltip" data-placement="top"> <span
+										class="glyphicon glyphicon-remove"></span>
+								</a></td>
+							</tr>
+
+							<tr>
+								<td th:if="${#lists.isEmpty(usuarios)}" class="text-center"
+									colspan="12">Nenhum usuário encontrado</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div layout:include="usuario/DiagoloConfirmacaoExclusaoUsuario"></div>
+
+		</div>
+	</div>
+
+</section>
+
+</html>

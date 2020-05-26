@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Pesquisa de Estabelecimento</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+
+		<div class="panel panel-default panel-primary">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-titulo-panel"
+						th:text="${usuario.username}"></h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						sec:authorize="hasRole('ROLE_ADMIN')"
+						th:href="@{/usuarios/perfil/{id}(id=${usuario.id})}">Voltar
+						perfil</a>
+				</div>
+			</div>
+
+			<div class="panel-body">
+
+				<form method="GET" class="form-horizontal"
+					sec:authorize="hasRole('ROLE_ADMIN')"
+					th:action="@{/usuarios/pesquisarEstabelecimento/{id}(id=${usuario.id})}"
+					th:object="${filtro}">
+					
+					<div class="form-group">
+					<div layout:include="MensagemGeral"></div>
+					<div layout:include="MensagemErro"></div>
+					
+						<div class="col-sm-4">
+							<div class="input-group">
+								<input class="form-control" type="number"
+									placeholder="Informe o ID do estabelecimento que esta procurando?"
+									autofocus="autofocus" th:field="*{codigo}"></input> <span
+									class="input-group-btn">
+									<button type="submit" class="btn btn-default">
+										<i class="glyphicon glyphicon-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+			<div class="panel-body" th:if="${estabelecimento != null}" 
+			style="margin-top: -45px;">
+
+				<form method="POST" th:action="@{/usuarios/addEstabelecimento}"
+				th:object="${estabelecimento}">
+				
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{dataCadastro}" />
+				<input type="hidden" th:field="*{telefones}" />
+				<input type="hidden" th:field="*{listaPrecos}" />
+				<input type="hidden" th:field="*{horarios}" />
+				<input type="hidden" th:field="*{usuario}" />
+				<input type="hidden" th:field="*{cep}" />
+				<input type="hidden" th:field="*{cidade}" />
+				<input type="hidden" th:field="*{complemento}" />
+				<input type="hidden" th:field="*{comSelo}" />
+				<input type="hidden" th:field="*{dataCadastro}" />
+				<input type="hidden" th:field="*{email}" />
+				<input type="hidden" th:field="*{latitude}" />
+				<input type="hidden" th:field="*{longitude}" />
+				<input type="hidden" th:field="*{observacao}" />
+				<input type="hidden" th:field="*{responsavel}" />
+				<input type="hidden" th:field="*{status}" />
+				<input type="hidden" th:field="*{taxa}" />
+				<input type="hidden" th:field="*{uf}" />
+				<input type="hidden" th:field="*{urlImagem}" />
+				<input type="hidden" th:field="*{nome}" />
+				<input type="hidden" th:field="*{bairro}" />
+				<input type="hidden" th:field="*{logradouro}" />
+				
+				<div class="row">
+				
+					<div class="form-group col-sm-3 pde-required">
+						<label for="nome" class="control-label">Nome</label> 
+						<input type="text" class="form-control" id="nome" th:field="*{nome}"
+						disabled="true"/>
+					</div>
+					
+					<div class="form-group col-sm-3">
+						<label for="logradouro">Logradouro</label>
+						<input type="text" class="form-control"
+								id="logradouro" th:field="*{logradouro}"
+								disabled="true" />
+					</div>
+					
+					<div class="form-group col-sm-3">
+						<label for="bairro">Bairro</label>
+						<input type="text" class="form-control"
+								id="bairro" th:field="*{bairro}" 
+								disabled="true"/>
+					</div>
+					
+					<div class="form-group" style="margin-top: 24px;">
+					
+					<div>
+						<button type="submit" class="btn btn-primary">Adicionar</button>
+					</div>
+					
+				</div>
+				
+				</div>
+		
+		
+				</form>
+
+			</div>
+
+			<div class="panel-body" style="margin-top: -20px;">
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<th class="text-center col-md-1">#</th>
+							<th class="text-center col-md-2">Nome</th>
+							<th class="text-center col-md-2">Endereco</th>
+							<th class="text-center col-md-1">Responsável</th>
+							<th class="text-center col-md-1">Bairro</th>
+							<th class="text-center col-md-1">Selo</th>
+						</thead>
+
+						<tbody>
+
+							<tr th:each="estabelecimento : ${usuario.listaEstabelecimentos}">
+								<td class="text-center" th:text="${estabelecimento.id}"></td>
+								<td class="text-center" th:text="${estabelecimento.nome}"></td>
+								<td class="text-center" th:text="${estabelecimento.logradouro}"></td>
+								<td class="text-center" th:text="${estabelecimento.responsavel}"></td>
+								<td class="text-center" th:text="${{estabelecimento.bairro}}"></td>
+
+								<td class="text-center"
+									th:text="${{estabelecimento.isComSelo() ? 'SIM' : 'NÃO'}}">
+								</td>
+
+							</tr>
+
+							<tr>
+								<td th:if="${#lists.isEmpty(usuario.listaEstabelecimentos)}"
+									class="text-center" colspan="12">Nenhum estabelecimento
+									encontrado</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+</html>

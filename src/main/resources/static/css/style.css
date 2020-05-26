@@ -1,0 +1,370 @@
+/* Tela Grande */
+@media ( min-width : 768px) {
+	.panel-default {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	.alert {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+
+<<<<<<< HEAD
+=======
+.color {
+	background-color: #880F41;
+	color: #fff;
+	border-color: #610631; 
+}
+
+/*-----------------------------------------------------------*\
+  Novo stilo
+  
+\*-----------------------------------------------------------*/
+btn-pde-style {
+	color: #fff;
+	background-color: #ffffff;
+	border-color: #46b8da
+}
+
+.btn-pde-style.focus, .btn-pde-style:focus {
+	color: #fff;
+	background-color: #31b0d5;
+	border-color: #1b6d85
+}
+
+.btn-pde-style:hover {
+	color: #fff;
+	background-color: #31b0d5;
+	border-color: #269abc
+}
+
+.btn-pde-style.active, .btn-pde-style:active, .open>.dropdown-toggle.btn-pde-style {
+	color: #fff;
+	background-color: #31b0d5;
+	border-color: #269abc
+}
+
+.btn-pde-style.active.focus, .btn-pde-style.active:focus, .btn-pde-style.active:hover,
+	.btn-pde-style:active.focus, .btn-pde-style:active:focus, .btn-pde-style:active:hover,
+	.open>.dropdown-toggle.btn-pde-style.focus, .open>.dropdown-toggle.btn-pde-style:focus,
+	.open>.dropdown-toggle.btn-pde-style:hover {
+	color: #fff;
+	background-color: #269abc;
+	border-color: #1b6d85
+}
+
+.btn-pde-style.active, .btn-pde-style:active, .open>.dropdown-toggle.btn-pde-style {
+	background-image: none
+}
+
+.btn-pde-style.disabled.focus, .btn-pde-style.disabled:focus, .btn-pde-style.disabled:hover,
+	.btn-pde-style[disabled].focus, .btn-pde-style[disabled]:focus, .btn-pde-style[disabled]:hover,
+	fieldset[disabled] .btn-pde-style.focus, fieldset[disabled] .btn-pde-style:focus,
+	fieldset[disabled] .btn-pde-style:hover {
+	background-color: #5bc0de;
+	border-color: #46b8da
+}
+
+.btn-pde-style .badge {
+	color: #5bc0de;
+	background-color: #fff
+}
+
+>>>>>>> 5faec6050880c2265e9c8fc20b155c14b0b2bc5a
+.panel-heading{
+	margin: 0;
+}
+
+body{
+	background-color: #f2f2f2;
+	padding-top: 12px;
+}
+
+li p {
+	color: #9d9d9d;
+	margin: 15px 10px 0 0 ;
+}
+
+li button {
+	margin-top: 12px;
+	margin-right:35px;
+	color: #9d9d9d;
+	display: inline-block;
+    padding: 2px 4px;
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    background-color: #610631;
+    border: 1px solid transparent;
+    border-radius: 30px;
+}
+
+li button:hover {
+	color: white;
+}
+
+.input-group{
+	padding-top: 12px;
+	padding-bottom: 24px;
+}
+
+.text-center .img-responsive {
+    margin: 0 auto;
+}
+.navbar-brand {
+	padding-top: 12px;
+}
+
+.pde-link-panel {
+	float: right;
+	padding: 0;
+}
+
+.pde-link-panel-detalhe {
+	float: right;
+	padding: 0;
+	color: white;
+}
+
+.pde-titulo-panel {
+	float: left;
+	padding-top: 2px;
+}
+
+.danger span{
+	color: white;
+	font-weight: bold;
+}
+
+span.icone.glyphicon{
+	color: white;
+}
+
+.img-circle{
+	height: 140px;
+	width: 140px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.detalhe-nome{
+	font-size:30px;
+	padding: 10px;
+	color: white;
+}
+
+.panel{
+	border-color: #610631;
+}
+
+.panel .panel-heading{
+	background-color: #610631;
+}
+table{
+	color: #610631;
+}
+
+ul.list-group{
+	color: #610631;
+}
+
+span.glyphicon{
+	color: #610631;
+}
+.navbar span.glyphicon{
+	color: #9d9d9d;
+	
+}
+.navbar span.glyphicon:hover{
+	color: white;
+}
+.pde-detalhe-panel {
+	float: left;
+	padding-top: 1px;
+	margin-top: 4px;
+	color: white;
+}
+
+.js-coordenadas {
+	margin-top: 23px;
+}
+
+#map-canvas {
+	margin: 0;
+	padding: 2px;
+	height: 100%;
+	width: 550px;
+	height: 480px;
+}
+
+.pde-required >.control-label:after {
+	content: "*";
+}
+
+.alerta {
+	padding: 15px;
+	background-color: #f44336;
+	border-radius: 5px;
+	color: black;
+	opacity: 1;
+	transition: opacity 0.6s;
+	margin-bottom: 15px;
+	margin-left: 10px;
+	margin-right: 10px
+}
+
+.alerta.sucesso {
+	background-color: #e6ffe6;
+}
+
+.closebtn {
+	margin-left: 17px;
+	color: black;
+	height: 20px;
+	width: 20px;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+	padding-left:4px;
+}
+
+.closebtn:hover {
+	color: white;
+	padding-left:4px;
+	background-color: #BFBFBF;
+	border-radius: 50%;
+}
+
+.bar{
+	background: #610631;
+}
+
+<<<<<<< HEAD
+=======
+.tab-content {
+	margin-top: 30px;
+}
+
+>>>>>>> 5faec6050880c2265e9c8fc20b155c14b0b2bc5a
+<!-- Footer -->
+
+ footer .material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.material-icons-red{
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  color: red;
+  font-size: 14px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+.material-icons-green{
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  color: green;
+  font-size: 14px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/*-----------------------------------------------------------*\
+  Error panel
+  - Para ser usado em p�ginas de erro simpls (404, 500, etc)
+\*-----------------------------------------------------------*/
+.pde-error-panel {
+  color: #777777;
+  text-align: center;
+}
+.pde-error-panel__title {
+  font-size: 32px;
+}
+.pde-error-panel__description {
+  display: block;
+  padding: 18px 0;
+}
+.pde-error-panel__code {
+  color: #d9d9d9;
+  font-size: 80px;
+  font-weight: normal;
+<<<<<<< HEAD
+}
+=======
+}
+
+>>>>>>> 5faec6050880c2265e9c8fc20b155c14b0b2bc5a

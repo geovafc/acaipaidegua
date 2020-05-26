@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Cadastro de Estabelecimento</title>
+
+</head>
+
+<section layout:fragment="conteudo">
+
+	<form method="POST" th:action="@{/estabelecimentos/novo}"
+		th:object="${estabelecimento}">
+
+		<div layout:include="MensagemGeral"></div>
+		<div layout:include="MensagemErro"></div>
+
+		<div class="panel panel-default panel-primary">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-titulo-panel">Novo Estabelecimento</h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						th:href="@{/estabelecimentos}">Voltar para pesquisa</a>
+				</div>
+			</div>
+
+
+			<div class="panel-body">
+
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{dataCadastro}" />
+				<input type="hidden" th:field="*{telefones}" />
+				<input type="hidden" th:field="*{listaPrecos}" />
+				<input type="hidden" th:field="*{horarios}" />
+				<input type="hidden" th:field="*{comSelo}" />
+				<input type="hidden" th:field="*{latitude}" />
+				<input type="hidden" th:field="*{longitude}" />
+				<input type="hidden" th:field="*{status}" />
+				<input type="hidden" th:field="*{usuario}" />
+				<input type="hidden" th:field="*{responsavel}" />
+				<input type="hidden" th:field="*{email}" />
+				<input type="hidden" th:field="*{refreshedToken}" />
+				
+				<div class="row">
+					<div class="form-group col-sm-3 pde-required"
+						th:classappend="${#fields.hasErrors('nome')} ? has-error">
+						<label for="nome" class="control-label">Nome</label> 
+						<input type="text" class="form-control" id="nome" th:field="*{nome}"
+							autofocus="autofocus" />
+					</div>
+
+					<div class="form-group col-sm-3">
+						<label for="usuarionome">Responsável</label> 
+						<input type="text" class="form-control" th:field="*{usuario.username}" 
+						disabled="true"/>
+					</div>
+
+					<div class="form-group col-sm-3">
+						<label for="usuarioemail">E-mail</label> <input type="text"
+							class="form-control" th:field="*{usuario.email}" 
+							disabled="true"/>
+					</div>
+
+				</div>
+
+				<div class="row">
+				
+					<div class="form-group col-sm-3">
+						<label for="cep">Cep</label>
+						<input type="text" class="form-control"
+								id="cep" th:field="*{cep}" 
+								onblur="pesquisacep(this.value);"/>
+					</div>
+				
+					<div class="form-group col-sm-3">
+						<label for="logradouro">Logradouro</label>
+						<input type="text" class="form-control"
+								id="logradouro" th:field="*{logradouro}" />
+					</div>
+					
+					<div class="form-group col-sm-3">
+						<label for="complemento">Complemento</label>
+						<input type="text" class="form-control"
+								id="complemento" th:field="*{complemento}" />
+					</div>
+				
+					<div class="form-group col-sm-3">
+						<label for="bairro">Bairro</label>
+						<input type="text" class="form-control"
+								id="bairro" th:field="*{bairro}" />
+					</div>
+				
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-3">
+						<label for="cidade">Cidade</label>
+						<input type="text" class="form-control"
+								id="cidade" th:field="*{cidade}" />
+					</div>
+				
+					<div class="form-group col-sm-3">
+						<label for="uf">uf</label>
+						<input type="text" class="form-control"
+								id="uf" th:field="*{uf}" />
+					</div>
+					
+					<div class="form-group col-sm-3">
+						<label for="url">URL Imagem</label>
+						<input type="text" class="form-control"
+								id="url" th:field="*{urlImagem}" />
+					</div>
+					
+					<div class="form-group col-sm-3">
+						<label for="taxa">Taxa de entrega</label>
+						<textarea class="form-control" id="taxa" th:field="*{taxa}" ></textarea>
+					</div>
+				
+				</div>
+				
+				
+				<div class="row">
+					
+					<div class="form-group col-sm-3">
+						<label for="observacao">Observação</label>
+						<textarea type="text" class="form-control"
+								id="observacao" th:field="*{observacao}" ></textarea>
+					</div>
+				</div>
+				
+								
+				<hr />
+
+				<div class="form-group">
+					<div>
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+	</form>
+	
+</section>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Clientes</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Clientes</h1>
+				</div>
+			</div>
+
+			<div class="panel-body">
+
+				<form method="POST" th:action="@{/clientes}"
+					th:object="${cliente}">
+	
+					<div layout:include="MensagemGeral"></div>
+					<div layout:include="MensagemErro"></div>
+
+					
+						<div class="panel-body">
+
+<!-- 							<input type="hidden" th:field="*{id}" /> -->
+							<input type="hidden" th:field="*{uid}" />
+
+							<div class="row">
+
+								<div class="form-group col-sm-3 pde-required"
+									th:classappend="${#fields.hasErrors('uid')} ? has-error">
+									<label for="uid" class="control-label">UID</label> <input
+										type="text" class="form-control" id="uid"
+										th:field="*{uid}" autofocus="autofocus" />
+								</div>
+								<div class="form-group col-sm-4 pde-required"
+									th:classappend="${#fields.hasErrors('nome')} ? has-error">
+									<label for="username" class="control-label">Nome</label> <input
+										type="text" class="form-control" id="nome"
+										th:field="*{nome}" autofocus="autofocus" />
+								</div>
+
+								<div class="form-group col-sm-4"
+									th:classappend="${#fields.hasErrors('email')} ? has-error">
+									<label for="email">E-mail</label> 
+									<input type="email" class="form-control" id="email" th:field="*{email}" />
+								</div>
+
+							</div>
+							
+							<div class="row">
+								<div class="form-group col-sm-3"
+									th:classappend="${#fields.hasErrors('telefone')} ? has-error">
+									<label for="telefone">Telefone</label> 
+									<input type="text" class="form-control js-mask-telefone" id="telefone" th:field="*{telefone}" />
+								</div>
+
+							</div>
+							
+							<div class="row">
+
+								<div class="form-group col-sm-4 pde-required"
+									th:classappend="${#fields.hasErrors('endereco')} ? has-error">
+									<label for="username" class="control-label">Endereço</label> <input
+										type="text" class="form-control" id="endereco"
+										th:field="*{endereco}" />
+								</div>
+
+								<div class="form-group col-sm-4"
+									th:classappend="${#fields.hasErrors('bairro')} ? has-error">
+									<label for="email">Bairro</label> 
+									<input type="text" class="form-control" id="bairro" th:field="*{bairro}" />
+								</div>
+
+							</div>
+
+							<hr />
+
+							<div class="form-group">
+
+								<div>
+									<button type="submit" class="btn btn-primary">Salvar</button>
+								</div>
+
+							</div>
+						</div>
+				</form>
+
+
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<th class="text-center col-md-1">#</th>
+							<th class="text-center col-md-2">Nome</th>
+							<th class="text-center col-md-2">telefone</th>
+							<th class="text-center col-md-2">E-Mail</th>
+							<th class="text-center col-md-2">Endereco</th>
+							<th class="text-center col-md-1">Bairro</th>
+							<th class="text-center col-md-2">Ação</th>
+						</thead>
+
+						<tbody>
+
+							<tr th:each="cliente : ${clientes}">
+
+								<td class="text-center" th:text="${cliente.uid}"></td>
+								<td class="text-center" th:text="${cliente.nome}"></td>
+								<td class="text-center" th:text="${cliente.telefone}"></td>
+								<td class="text-center" th:text="${cliente.email}"></td>
+								<td class="text-center" th:text="${cliente.endereco}"></td>
+								<td class="text-center" th:text="${cliente.bairro}"></td>
+								<td class="text-center"><a class="btn btn-link btn-xs"
+
+									th:href="@{/clientes/{id}(id=${cliente.uid})}" title="Editar"
+									rel="tooltip" data-placement="top"
+									sec:authorize="hasRole('ROLE_ADMIN')"> <span
+										class="glyphicon glyphicon-pencil"></span>
+								</a> 
+								<a class="btn btn-link btn-xs" data-toggle="modal"
+									data-target="#confirmacaoExclusaoModalCliente"
+									th:attr="data-id=${cliente.uid}, data-nome=${cliente.nome}"
+									title="Excluir" rel="tooltip" data-placement="top"
+									sec:authorize="hasRole('ROLE_ADMIN')"> <span
+										class="glyphicon glyphicon-remove"></span>
+								</a></td>
+							</tr>
+
+							<tr>
+								<td th:if="${#lists.isEmpty(clientes)}" class="text-center"
+									colspan="12">Nenhum cliente encontrado</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div layout:include="cliente/DiagoloConfirmacaoExclusaoCliente"></div>
+	</div>
+
+</section>
+
+
+</html>

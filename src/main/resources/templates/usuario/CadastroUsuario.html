@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+<head>
+<title>Cadastro de Usuário</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+	
+		<form method="POST" th:action="@{/usuarios/save}"
+			th:object="${usuario}">
+
+			<div layout:include="MensagemGeral"></div>
+			<div layout:include="MensagemErro"></div>
+
+			<div class="panel panel-primary">
+
+				<div class="panel-heading">
+					<div class="clearfix">
+						<h1 class="panel-title pde-titulo-panel">Novo Usuário</h1>
+						<a class="btn btn-link pde-link-panel" th:href="@{/usuarios}">Voltar
+							para usuários</a>
+					</div>
+				</div>
+
+				<div class="panel-body">
+
+					<input type="hidden" th:field="*{id}" />
+
+
+					<div class="row">
+
+						<div class="form-group col-sm-4 pde-required"
+							th:classappend="${#fields.hasErrors('username')} ? has-error">
+							<label for="username" class="control-label">Nome</label> 
+							<input
+								type="text" class="form-control" id="nome" th:field="*{username}"
+								autofocus="autofocus" />
+						</div>
+
+						<div class="form-group col-sm-4"
+							th:classappend="${#fields.hasErrors('email')} ? has-error">
+							<label for="email">E-mail</label> <input type="email"
+								class="form-control" id="email" th:field="*{email}" />
+						</div>
+						
+						<div class="form-group col-sm-3"
+							th:classappend="${#fields.hasErrors('password')} ? has-error">
+							<label for="password">Senha</label> <input type="password"
+								class="form-control" id="password" th:field="*{password}" />
+						</div>
+
+					</div>
+
+					<hr />
+
+					<div class="form-group">
+
+						<div>
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</section>
+
+</html>

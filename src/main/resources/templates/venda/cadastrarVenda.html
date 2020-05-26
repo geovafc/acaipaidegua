@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Adicionar Venda</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+	
+		<div class="panel panel-default panel-primary">
+		
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-titulo-panel">Cadastar uma venda</h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						sec:authorize="hasRole('ROLE_ADMIN')"
+						th:href="@{/vendas}">Voltar vendas</a>
+				</div>
+			</div>
+			
+			<div class="panel-body">		
+				
+				<form method="POST" th:action="@{/vendas}"
+						th:object="${venda}">
+						
+						
+						<div class="row">
+							
+							<div class="form-group col-sm-6" th:classappend="${#fields.hasErrors('estabelecimento')} ? has-error">
+								<label for="estabelecimento">Selecione o estabelecimento</label> 
+								<select class="form-control" id="estabelecimento" th:field="*{estabelecimento}" style="margin-top: 12px;">
+									<option value="">Selecione o estabelecimento</option>
+									<option th:each="estabelecimento : ${estabelecimentos}" th:value="${estabelecimento.id}" th:text="${estabelecimento.nome}"></option>
+								</select>
+							</div>
+							
+							<div class="form-group col-sm-6" th:classappend="${#fields.hasErrors('cliente')} ? has-error">
+								<label for="cliente">Selecione o cliente</label> 
+								<select class="form-control" id="clientes" th:field="*{cliente}" style="margin-top: 12px;">
+									<option value="">Selecione o cliente</option>
+									<option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nome}"></option>
+								</select>
+							</div>
+							
+						
+						</div>
+						
+						
+						<div class="row">
+						
+							<div class="form-group col-sm-6">
+								<label for="logradouro">Logradouro</label>
+								<input type="text" class="form-control"
+										th:field="*{enderecoEntrega}"/>
+							</div>
+						
+							<div class="form-group col-sm-6">
+								<label for="bairro">Bairro</label>
+								<input type="text" class="form-control"
+										th:field="*{bairroEntrega}" />
+							</div>
+						
+						</div>
+						
+						<div class="row">
+						
+							<div class="form-group col-sm-6">
+								<label for="pagamento">Forma de Pagamento</label>
+								<select class="form-control" id="pagamento" th:field="*{formaPagamento}" style="margin-top: 12px;">
+									<option value="">Selecione</option>
+									<option th:each="formas : ${formasPagamento}" th:value="${formas}" th:text="${formas}"></option>
+								</select>
+							</div>
+						
+							<div class="form-group col-sm-6">
+								<label for="bairro">Observação</label>
+								<input type="text" class="form-control"
+										th:field="*{observacao}" />
+							</div>
+						
+						</div>
+						
+						<div class="row">
+						
+							<div class="form-group col-sm-6">
+								<label for="logradouro">Taxa de Entrega</label>
+								<input type="text" class="form-control"
+										th:field="*{taxaEntrega}"/>
+							</div>
+						
+							<div class="form-group col-sm-6">
+								<label for="bairro">Troco</label>
+								<input type="text" class="form-control"
+										th:field="*{troco}" />
+							</div>
+						
+						</div>
+						
+					<div>
+						<button type="submit" class="btn btn-primary">Adicionar</button>
+					</div>
+							
+						
+					</form>
+			
+			</div>	
+		</div>
+	
+	</div>
+
+</section>
+
+
+</html>

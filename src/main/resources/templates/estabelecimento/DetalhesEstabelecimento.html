@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Detalhes do Estabelecimento</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div class="container">
+
+		<div layout:include="MensagemGeral"></div>
+
+
+		<div class="panel">
+
+			<div class="panel-heading text-center">
+				<img th:src="${estabelecimento.urlImagem}"
+					class="img-circle img-responsive"
+					alt="${estabelecimento.urlImagem}" /> <span
+					class="detalhe-nome text-center" th:text="${estabelecimento.nome}"></span>
+			</div>
+
+		</div>
+
+
+		<div class="panel">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Dados
+						estabelecimento</h1>
+						
+						<a class="btn btn-link btn-xs pde-link-panel-detalhe"
+							th:href="@{/estabelecimentos/editarEstabelecimentoPeloUsuario/{id}(id=${estabelecimento.id})}"
+							title="Editar" rel="tooltip" data-placement="top"
+							sec:authorize="hasRole('ROLE_USER')">
+							<span class="icone glyphicon glyphicon-pencil"></span>
+							Editar 
+						
+						</a> 
+						
+				</div>
+			</div>
+
+			<ul class="list-group">
+
+				<li class="list-group-item"><b>Responsável:</b> <label
+					th:text="${{estabelecimento.usuario == null ? null :  estabelecimento.usuario.username}}"></label></li>
+				<li class="list-group-item"><b>Email: </b> <label
+					th:text="${{estabelecimento.usuario == null ? null :  estabelecimento.usuario.email}}"></label></li>
+				<li class="list-group-item"><b>Endereço: </b> <label
+					th:text="${estabelecimento.logradouro}"></label> <label
+					th:text="${estabelecimento.complemento}"></label> <label
+					th:text="${estabelecimento.bairro}"></label> <label
+					th:text="${estabelecimento.cidade}"></label> <label
+					th:text="${estabelecimento.uf}"></label></li>
+				<li class="list-group-item"><b>Data de Cadastro: </b> <label
+					th:text="${{estabelecimento.dataCadastro}}"></label></li>
+
+				<li class="list-group-item"><b>Observação: </b> <label
+					th:text="${{estabelecimento.observacao}}"></label></li>
+
+				<li class="list-group-item"><b>Taxa de entrega: </b> <label
+					th:text="${{estabelecimento.taxa}}"></label></li>
+			</ul>
+		</div>
+
+		<!-- Lista telefones -->
+
+		<div class="panel">
+
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Telefones</h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						th:href="@{/telefones/add/{id}(id=${estabelecimento.id})}">
+						<span class="icone glyphicon glyphicon-phone-alt"></span>
+						Novo
+						Telefone
+						</a>
+				</div>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Operadora</th>
+						<th class="text-center col-md-2">Número</th>
+						<th class="text-center col-md-1">Ação</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="telefone : ${estabelecimento.telefones}">
+							<td class="text-center" th:text="${telefone.id}"></td>
+							<td class="text-center" th:text="${telefone.operadora.descricao}"></td>
+							<td class="text-center" th:text="${telefone.numero}"></td>
+
+							<td class="text-center"><a class="btn btn-link btn-xs"
+								th:href="@{/telefones/editar/{id}(id=${telefone.id})}"
+								title="Editar" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-pencil"></span>
+							</a> <a class="btn btn-link btn-xs"
+								th:href="@{/telefones/excluir/{id}(id=${telefone.id})}"
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-remove"></span>
+							</a></td>
+						</tr>
+
+						<tr>
+							<td th:if="${#lists.isEmpty(estabelecimento.telefones)}"
+								class="text-center" colspan="12">Nenhum telefone cadastrado</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+
+		<!-- Lista Tabela de preço -->
+
+		<div class="panel">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Tabela de Preços</h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						th:href="@{/tabelas/add/{id}(id=${estabelecimento.id})}">
+						<span class="icone glyphicon glyphicon-usd"></span>
+						Novo Produto
+						</a>
+				</div>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Nome do Produto</th>
+						<th class="text-center col-md-2">Descrição do Produto</th>
+						<th class="text-center col-md-2">Preço</th>
+						<th class="text-center col-md-2">Ação</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="tabela : ${estabelecimento.listaPrecos}">
+							<td class="text-center" th:text="${tabela.id}"></td>
+							<td class="text-center" th:text="${tabela.produto.nome}"></td>
+							<td class="text-center" th:text="${tabela.produto.descricao}"></td>
+							<td class="text-center" th:text="${tabela.preco}"></td>
+
+							<td class="text-center"><a class="btn btn-link btn-xs"
+								th:href="@{/tabelas/editar/{id}(id=${tabela.id})}"
+								title="Editar" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-pencil"></span>
+							</a> <a class="btn btn-link btn-xs"
+								th:href="@{/tabelas/excluir/{id}(id=${tabela.id})}"
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-remove"></span>
+							</a></td>
+						</tr>
+
+						<tr>
+							<td th:if="${#lists.isEmpty(estabelecimento.listaPrecos)}"
+								class="text-center" colspan="12">Nenhum Produto cadastrado</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Lista de Horários -->
+
+		<div class="panel">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title pde-detalhe-panel">Horário de
+						Funcionamento</h1>
+					<a class="btn btn-link pde-link-panel-detalhe"
+						th:href="@{/horarios/add/{id}(id=${estabelecimento.id})}">
+						<span class="icone glyphicon glyphicon-time"></span>
+						Novo
+						Horário</a>
+				</div>
+			</div>
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-1">Tipo</th>
+						<th class="text-center col-md-1">Inicio</th>
+						<th class="text-center col-md-1">Final</th>
+						<th class="text-center col-md-1">Hora Abertura</th>
+						<th class="text-center col-md-1">Hora Fechamento</th>
+						<th class="text-center col-md-2">Ação</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="horario : ${estabelecimento.horarios}">
+							<td class="text-center" th:text="${horario.id}"></td>
+							<td class="text-center" th:text="${horario.tipo}"></td>
+							<td class="text-center" th:text="${horario.diaInicio}"></td>
+							<td class="text-center" th:text="${horario.diaFinal}"></td>
+							<td class="text-center" th:text="${horario.abertura}"></td>
+							<td class="text-center" th:text="${horario.fechamento}"></td>
+
+							<td class="text-center"><a class="btn btn-link btn-xs"
+								th:href="@{/horarios/editar/{id}(id=${horario.id})}"
+								title="Editar" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-pencil"></span>
+							</a> <a class="btn btn-link btn-xs"
+								th:href="@{/horarios/excluir/{id}(id=${horario.id})}"
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-remove"></span>
+							</a></td>
+						</tr>
+
+						<tr>
+							<td th:if="${#lists.isEmpty(estabelecimento.horarios)}"
+								class="text-center" colspan="12">Nenhum Horário cadastrado</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+
+		</div>
+	</div>
+</section>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+<title>Estabelecimento com selos</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+	<div layout:include="MensagemGeral"></div>
+
+	
+
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<th class="text-center col-md-1">#</th>
+						<th class="text-center col-md-2">Nome</th>
+						<th class="text-center col-md-2">Endereco</th>
+						<th class="text-center col-md-1">Responsável</th>
+						<th class="text-center col-md-1">Bairro</th>
+						<th class="text-center col-md-1">Status</th>
+						<th class="text-center col-md-1">Selo</th>
+						<th class="text-center col-md-2">Ação</th>
+					</thead>
+
+					<tbody>
+
+						<tr th:each="estabelecimento : ${estabelecimentos}">
+							<td class="text-center" th:text="${estabelecimento.id}"></td>
+							<td class="text-center" th:text="${estabelecimento.nome}"></td>
+							<td class="text-center" th:text="${estabelecimento.logradouro}"></td>
+							<td class="text-center" th:text="${estabelecimento.responsavel}"></td>
+							<td class="text-center" th:text="${{estabelecimento.bairro}}"></td>
+							<td class="text-center" th:attr="data-role=${estabelecimento.id}">
+								<span class="label" th:text="${estabelecimento.status}"
+								th:classappend="${estabelecimento.pendente ? 'label-danger' : 'label-success'}"></span>
+							</td>
+							<td class="text-center"
+								th:text="${{estabelecimento.isComSelo() ? 'SIM' : 'NÃO'}}"></td>
+							<td class="text-center"><a class="btn btn-link btn-xs"
+								th:href="@{/estabelecimentos/detalhe/{id}(id=${estabelecimento.id})}"
+								title="Detahles" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-list-alt"></span>
+							</a> <a class="btn btn-link btn-xs"
+								th:href="@{/estabelecimentos/{id}(id=${estabelecimento.id})}"
+								title="Editar" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-pencil"></span>
+							</a> <a class="btn btn-link btn-xs" data-toggle="modal"
+								data-target="#confirmacaoExclusaoModal"
+								th:attr="data-id=${estabelecimento.id}, data-nome=${estabelecimento.nome}"
+								title="Excluir" rel="tooltip" data-placement="top"> <span
+									class="glyphicon glyphicon-remove"></span>
+							</a> <a class="btn btn-link btn-xs js-atualizar-status"
+								th:if="${estabelecimento.pendente}" title="Receber"
+								rel="tooltip" data-placement="top"
+								th:attr="data-id=${estabelecimento.id}"
+								th:href="@{/estabelecimentos/{id}/receber(id=${estabelecimento.id})}">
+									<span class="glyphicon glyphicon-check"></span>
+							</a></td>
+						</tr>
+
+						<tr>
+							<td th:if="${#lists.isEmpty(estabelecimentos)}"
+								class="text-center" colspan="12">Nenhum estabelecimento
+								encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+				
+		<div class="col-md-12 text-center">		
+				<div class="pagination pagination-centered">
+				<ul class="pagination">
+					<li th:class="${currentIndex == 1} ? 'disabled' : ''">
+						<span th:if="${currentIndex == 1}">
+							First
+						</span>
+							<a th:if="${currentIndex != 1}" href='@{/estabelecimentos/page/1'></a>
+					</li>
+					
+					<li th:class="${currentIndex != 1} ? '' : 'disabled'">
+						<span th:if="${currentIndex == 1}">
+							<<
+						</span>
+							<a th:if="${currentIndex != 1}" href='@{|${baseURL}${currentIndex - 1|}'
+							title="Go To previous page"><<</a>
+					</li>
+					
+					<li th:each="item : ${#numbers.sequence(beginIndex, endIndex)}"
+						th:class="${item == currentIndex ? 'active' : ''}">
+						<span th:if="${item == currentIndex}" th:text="${item}">
+							1
+						</span>
+							<a th:if="${item != currentIndex}" href='@{|${baseURL}${item|}'
+							th:text="${item}"><<</a>
+					</li>
+					
+					<li th:class="${currentIndex != totalPageCount} ? '' : 'disabled'">
+						<span th:if="${currentIndex == totalPageCount}">
+							>>
+						</span>
+							<a th:if="${currentIndex != totalPageCount}" href='@{|${baseURL}${currentIndex + 1|}'
+							title="Go To next page"><<</a>
+					</li>
+					
+					<li th:class="${currentIndex == totalPageCount} ? 'disabled' : ''">
+						<span th:if="${currentIndex == totalPageCount}">
+							Last
+						</span>
+							<a th:if="${currentIndex != totalPageCount}" href='@{|${baseURL}${totalPageCount|}'
+							title="Go To next page">Last</a>
+					</li>
+					
+					
+				</ul>
+				</div>
+			</div>
+		</div>
+		<div layout:include="DiagoloConfirmacaoExclusao"></div>
+
+</section>
+</html>
